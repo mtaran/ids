@@ -1,0 +1,58 @@
+<script src="lib/invariant.js" type="text/jsx;harmony=true"></script>
+<script src="lib/dispatcher.js" type="text/jsx;harmony=true"></script>
+<script src="lib/jquery.js"></script>
+<script src="lib/react.js"></script>
+<script src="lib/JSXTransformer.js"></script>
+<script src="lib/fastclick.js"></script>
+<script src="lib/firebase.js"></script>
+<script src="lib/reactfire.js"></script>
+<link rel="stylesheet" href="css/idsprite.css">
+<link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/ime.css">
+
+<script>
+window.addEventListener('load', function() {
+     new FastClick(document.body);
+}, false);
+</script>
+<div id="top"></div>
+<br><br>
+<style>
+.filter {  
+	margin-right: 8px;
+  border: none;
+  font-size: 15px;
+}
+.wordRow {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	/* SAFARI! */
+	display: -webkit-flex;
+	-webkit-flex-direction: row;
+	-webkit-align-items: center;
+}
+.wordRow>.word {
+	min-width: 40px;
+}
+.idRowContainer {
+	position:absolute;
+	left:0;
+	background-color:white;
+	z-index:1; /* to get above the input it's next to */
+	border: 1px solid #aaa;
+	margin-top: -1px;
+	display: flex;
+	flex-direction: column;
+	/* SAFARI! */
+	display: -webkit-flex;
+	-webkit-flex-direction: column;
+}
+</style>
+
+<script type="text/jsx" src="js/ime.jsx"></script>
+<script type="text/jsx" src="js/scoring.jsx"></script>
+<script type="text/jsx" src="js/topbar.jsx"></script>
+<script type="text/jsx" src="js/content.jsx"></script>
+<script type="text/jsx" src="js/idimg.jsx"></script>
+<script type="text/jsx" src="js/words.jsx"></script>

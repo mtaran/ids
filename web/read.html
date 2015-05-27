@@ -1,0 +1,39 @@
+<script src="lib/invariant.js" type="text/jsx;harmony=true"></script>
+<script src="lib/dispatcher.js" type="text/jsx;harmony=true"></script>
+<script src="lib/jquery.js"></script>
+<script src="lib/react.js"></script>
+<script src="lib/JSXTransformer.js"></script>
+<script src="lib/fastclick.js"></script>
+<script src="lib/firebase.js"></script>
+<script src="lib/reactfire.js"></script>
+<link rel="stylesheet" href="css/idsprite.css">
+<link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/ime.css">
+
+<script>
+window.addEventListener('load', function() {
+     new FastClick(document.body);
+}, false);
+</script>
+<div id="top"></div>
+<br><br>
+<style>
+.message {
+	min-height: 40px;
+  display: flex;
+  align-items: flex-end;
+	/* SAFARI! */
+	display: -webkit-flex;
+	-webkit-align-items: flex-end;
+}
+input {
+	margin-bottom: 6px;
+}
+</style>
+
+<script type="text/jsx" src="js/ime.jsx"></script>
+<script type="text/jsx" src="js/scoring.jsx"></script>
+<script type="text/jsx" src="js/idimg.jsx"></script>
+<script type="text/jsx" src="js/topbar.jsx"></script>
+<script type="text/jsx" src="js/content.jsx"></script>
+<script type="text/jsx" src="js/read.jsx"></script>

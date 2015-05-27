@@ -1,0 +1,11 @@
+{
+  "firebase": "idannotations",
+  "public": ".",
+  "ignore": [
+    "firebase.json",
+    "**/rot/**",
+    "**/pngs/**",
+    "**/svgs/**",
+    "**/node_modules/**"
+  ]
+}

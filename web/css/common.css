@@ -1,0 +1,107 @@
+html {
+  box-sizing: border-box;
+	font-family: sans-serif;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+body, form {
+	margin: 0;
+}
+.topBar {
+	background-image: linear-gradient(to bottom,#537 0,#759 100%);
+	height: 33px;
+	padding: 8px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	/* SAFARI! */
+	display: -webkit-flex;
+	-webkit-flex-direction: row;
+	-webkit-align-items: center;
+}
+.content {
+	margin: 8px;
+}
+
+.id { 
+	border: 1px solid transparent; 
+}
+.id.withMenu, .id:hover {
+	border: 1px solid #759;
+	border-radius: 4px;
+}
+.id.deprecated {
+	opacity: 0.5;
+}
+
+
+.idMenu {
+	position: absolute;
+  background-color: white;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  padding: 6px;
+  z-index: 1; /* to get it above other pesky things like inputs */
+  min-width: 150px;
+}
+.idMenu:first-child {
+	margin-top:0;
+}
+.idMenu>* {
+	margin-top: 6px;
+}
+.idMenu input:not([type]) {
+	width: 100%;
+}
+.idMenu .issue {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	/* SAFARI! */
+	display: -webkit-flex;
+	-webkit-flex-direction: row;
+	-webkit-align-items: center;
+}
+.idMenu .issue span {
+	color: #f21;
+	font-size: 13px;
+}
+.idMenu .issue div {
+	flex: 1;
+	/* SAFARI! */
+	-webkit-flex: 1;
+}
+.idMenu .issue button {
+	float:right;
+	margin-left: 6px;
+}
+.idMenu .components {
+	display: flex;
+	/* SAFARI! */
+	display: -webkit-flex;
+}
+.idMenu .remove {
+	float: right;
+	color: #f66;
+	cursor: pointer;
+	margin-left: 6px;
+}
+.idMenu .idInput {
+	width: 100%;
+}
+.idMenu .extra {
+	font-size: 13px;
+}
+.stackedId {
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+	/* SAFARI! */
+	display: -webkit-inline-flex;
+	-webkit-flex-direction: column;
+	-webkit-align-items: center;
+}
+img {
+	margin: 0 15px;
+}

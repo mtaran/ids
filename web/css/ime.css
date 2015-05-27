@@ -1,0 +1,38 @@
+
+.idInput {
+	position:relative;
+	display:inline-block;
+}
+.idInput input {
+	width: 160px;
+}
+.idRowContainer {
+	position:absolute;
+	left:0;
+	/*width:100%;*/
+	background-color:white;
+	z-index:1; /* to get above the input it's next to */
+	border: 1px solid #aaa;
+	margin-top: -1px;
+	display: flex;
+	flex-direction: column;
+	/* SAFARI! */
+	display: -webkit-flex;
+	-webkit-flex-direction: column;
+}
+.idRow {
+	align-items: center;
+	overflow:hidden;
+	display: flex;
+	/* SAFARI! */
+	display: -webkit-flex;
+}
+.idRow.selected {
+	background-color: #aaf;
+}
+.idRow>* {
+	min-width: 60px;
+	flex: 0 0 auto;
+	/* SAFARI! */
+	-webkit-flex: 0 0 auto;
+}
