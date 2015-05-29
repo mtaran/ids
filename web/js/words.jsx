@@ -11,22 +11,16 @@ pagenum:
 		width: int
 */
 
+var firebase = new Firebase('https://idannotations.firebaseio.com/');
 
-var SCALE = 0.5
-
-function readLocal(key,defaultVal) {
-	if (localStorage.hasOwnProperty("ids/"+key)) {
-		return localStorage['ids/'+key]
-	}
-	else
-		return defaultVal
-}
-function writeLocal(key, val) {
-	return localStorage["ids/"+key] = val
-}
-
+/**
+ * Component for a single row with an english word and the ids corresponding to 
+ * that row.
+ */
 var WordRow = React.createClass({
-	handleChange: function(e) {
+	propTypes: {
+		word: React.PropTypes.string.isRequired,
+		ids: React.PropTypes.array.isRequired,
 	},
 	render: function() {
 		return (
@@ -40,22 +34,41 @@ var WordRow = React.createClass({
 	}
 })
 
-var firebase = new Firebase('https://idannotations.firebaseio.com/');
+/**
+ * How many words to show on a page of results.
+ * @type {number}
+ */
+var NUM_WORDS_PER_PAGE = 20;
+
+/**
+ * Root component for the words.html page.
+ *
+ * Renders an input box into the top bar, which can be used to search for ids 
+ * (or by using syntax like '#2' to view the second page of ids). For the main
+ * content, just renders the PageRow components for the words that match the
+ * search query, up to NUM_WORDS_PER_PAGE.
+ *
+ * Searching currently does a case-insensitive substring match, with some basic
+ * heuristics for ordering.
+ *
+ * Data comes from /ids in Firebase, bound to this.props.allIds.
+ */
 var Main = React.createClass({
 	mixins: [ReactFireMixin],
 	getInitialState: function() {
 		return {
 			allIds: {},
-			filter: readLocal('dictFilter', 'id')
+			filter: readLocal('dictFilter', 'id') // saved in localStorage
 		}
 	},
 	componentWillMount: function() {
 		this.bindAsObject(firebase.child('ids'), 'allIds');
 	},
-	updateFilter: function(e) {
-		this.setState({filter:e.target.value})
-		writeLocal('dictFilter', e.target.value)
-	},
+	/**
+	 * Gets the page that the search box says we should be on, if in the format
+	 * of '#N', or null otherwise.
+	 * @return {?number}
+	 */
 	getFilterPage: function() {
 		if (this.state.filter.indexOf('#') != 0) {
 			return null;
@@ -66,6 +79,11 @@ var Main = React.createClass({
 		}
 		return num;
 	},
+	/**
+	 * Gets the groups of ids corresponding to the words that should be shown
+	 * based on the current query string.
+	 * @return {Array<Array<Id>>}
+	 */
 	getCurrentWords: function() {
 		var ids = []
 		for (var pagenum in this.state.allIds)
@@ -84,7 +102,8 @@ var Main = React.createClass({
 			})
 			var curWord = sortedIds[0].word
 			var curIndex = 0;
-			for (var i = 0; i < sortedIds.length && curIndex < pageNum*20; i++) {
+			var wordNum = pageNum*NUM_WORDS_PER_PAGE;
+			for (var i = 0; i < sortedIds.length && curIndex < wordNum; i++) {
 				if (sortedIds[i].word == curWord) {
 					continue
 				} else {
@@ -104,7 +123,7 @@ var Main = React.createClass({
 
 		return ids
 			.reduce(function(words, id, i, ids) {
-				if (words.length >= 20) {
+				if (words.length >= NUM_WORDS_PER_PAGE) {
 					return words
 				}
 				for (var i = 0; i < words.length; i++)
@@ -120,9 +139,25 @@ var Main = React.createClass({
 				return words
 			}.bind(this), [])
 	},
+	/**
+	 * Handler for change events on the search box input component.
+	 * @param  {Event} e
+	 */
+	updateFilter: function(e) {
+		this.setState({filter:e.target.value})
+		writeLocal('dictFilter', e.target.value)
+	},
+	/**
+	 * Handler for the prev next button, which switches the view to the next page
+	 * of ids.
+	 */
 	nextPage: function() {
 		this.setState({filter:'#'+(this.getFilterPage()+1)})
 	},
+	/**
+	 * Handler for the prev page button, which switches the view to the previous
+	 * page of ids.
+	 */
 	prevPage: function() {
 		this.setState({filter:'#'+(this.getFilterPage()-1)})
 	},

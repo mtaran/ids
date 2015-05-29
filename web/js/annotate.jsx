@@ -1,12 +1,5 @@
 // HELPERS
 
-function readLocal(key,defaultVal) {
-	if (localStorage.hasOwnProperty("ids/"+key)) {
-		return localStorage['ids/'+key]
-	}
-	else
-		return defaultVal
-}
 function read(key,defaultVal) {
 	if (localFire.hasOwnProperty("ids/"+key)) {
 		return localFire['ids/'+key]
@@ -15,9 +8,6 @@ function read(key,defaultVal) {
 		return localStorage['ids/'+key]
 	}
 	return defaultVal
-}
-function writeLocal(key, val) {
-	return localStorage["ids/"+key] = val
 }
 function write(key, val) {
 	if (val == "[]") {
