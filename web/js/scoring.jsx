@@ -34,3 +34,59 @@ function getBasicScore(filter, word) {
 	score += 3*(filter.length/word.length)
 	return score;
 }
+
+/**
+ * Not yet used, but should improve the speed to find the top 20 matches.
+ */
+function quickSort(data, opt_keyFn, opt_n, opt_memo) {
+	if (data.length <= 1) {
+		return data;
+	}
+	var n = opt_n === undefined ? Infinity : opt_n;
+	var smaller = [];
+	var greater = [];
+	var first = data[0];
+
+	if (first === undefined) { 
+		return; 
+	}
+
+	var pivot = first;
+
+	function getKey(item) {
+		if (!opt_memo) {
+			opt_memo = new Map();
+		}
+		if (opt_memo.has(item)) {
+			return opt_memo.get(item);
+		} else {
+			var key = opt_keyFn ? opt_keyFn(item) : item;
+			opt_memo.set(item, key);
+			return key;
+		}
+	}
+
+	for (var i = 1; i < data.length; i++) {
+		var item = data[i];
+		var pivotKey = getKey(pivot)
+		var itemKey = getKey(item);
+
+		if (itemKey < pivotKey) {
+			smaller.push(item);
+		} else {
+			greater.push(item);
+		}
+	}
+
+	var out = [];
+	out = out.concat(quickSort(smaller, opt_keyFn, n, opt_memo));
+	if (out.length == n) {
+		return out;
+	}
+	out.push(pivot);
+	if (out.length == n) {
+		return out;
+	}
+	out = out.concat(quickSort(greater, opt_keyFn, n - out.length, opt_memo));
+	return out;
+};
